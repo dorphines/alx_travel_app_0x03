@@ -1,16 +1,18 @@
 #!/bin/bash
 
-# Navigate to the Django project directory
+# Navigate to the directory containing manage.py
+# The repo root contains 'alx_travel_app/' folder which contains 'manage.py'
 cd alx_travel_app
 
 # Run database migrations
-echo "Applying database migrations..."
-python manage.py migrate
+echo "--- Running Migrations ---"
+python manage.py migrate --no-input
 
 # Start Celery worker in the background
-# Using '&' allows the script to continue to the next command
+echo "--- Starting Celery Worker ---"
 celery -A alx_travel_app worker -l info &
 
 # Start Gunicorn in the foreground
-# This keeps the container alive and serving web requests
+echo "--- Starting Gunicorn ---"
 gunicorn alx_travel_app.wsgi --bind 0.0.0.0:$PORT
+
