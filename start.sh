@@ -3,6 +3,10 @@
 # Navigate to the Django project directory
 cd alx_travel_app
 
+# Run database migrations
+echo "Applying database migrations..."
+python manage.py migrate
+
 # Start Celery worker in the background
 # Using '&' allows the script to continue to the next command
 celery -A alx_travel_app worker -l info &
